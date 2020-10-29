@@ -1,0 +1,19 @@
+{
+	"MainMenu":[
+		"Game Suit Jawa",
+		"==============",
+		"[1] Start",
+		"[2] Highscore",
+		"[3] Exit \n"
+	],
+	"Card":[
+		"[1] Batu",
+		"[2] Gunting",
+		"[3] Kertas \n",
+		"[0] Akhiri Game \n"
+	],
+	"Player":{
+		"Name":[],
+		"Score":[]
+	}
+}
