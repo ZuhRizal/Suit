@@ -1,1 +1,3 @@
-Game Suit : Gunting, Batu, Kertas
+Game Suit
+
+Untuk memainkan game ini execute run.py
