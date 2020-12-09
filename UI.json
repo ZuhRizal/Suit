@@ -10,10 +10,11 @@
 		"[1] Batu",
 		"[2] Gunting",
 		"[3] Kertas \n",
+		"[9] Reset Score",
 		"[0] Akhiri Game \n"
 	],
-	"Player":{
-		"Name":[],
-		"Score":[]
-	}
+	"Score":[
+		"  High Score",
+		"=============="
+	]
 }
