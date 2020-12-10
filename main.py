@@ -15,7 +15,7 @@ Game Suit Jawa
 ==============
 Hasil	: {"Menang" if abs(mS-eS) >= eS else "Kalah"}
 Player	: {mS}
-Com		: {eS}
+Com	: {eS}
 
 """)
 
