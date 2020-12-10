@@ -23,14 +23,10 @@ Com		: {eS}
 		with open("datascore.json") as json_file:	# Open file
 			file = json.load(json_file)				# Show file
 			
-		file["Score"][f"{N}"] = S					# Append key and value
+		file["Score"][f"{S}"] = N					# Append key and value
 
 		with open("datascore.json", "w") as json_file:
-			json.dump(file, json_file, indent=4)
-
-		with open("highscore.txt","w") as f:
-			for n,s in file["Score"].items():
-				f.write(f"{n} : {s} \n")
+			json.dump(file, json_file, indent=4,sort_keys=True)
 
 	def rules(self,U,E):
 		# The rules that you can win, lose, or draw
@@ -63,62 +59,59 @@ Com		: {eS}
 	def play(self):
 		mS = 0
 		eS = 0
-		with open("UI.json") as json_file:
-			file = json.load(json_file)
-			for f in file["MainMenu"]:
-				print(f)
+		# Main loop
+		while True:
+			with open("UI.json") as json_file:
+				file = json.load(json_file)
+				for f in file["MainMenu"]:
+					print(f)
 
-			# Main loop
-			while True:
-				menu = int(input("Pilih Menu : "))
-				if menu > 3 or menu < 1:
-					print("Maaf angka yang anda masukkan tidak tersedia di pilihan \n")
+			menu = int(input("Pilih Menu : "))
+			print("")
+			if menu > 3 or menu < 1:
+				print("Maaf angka yang anda masukkan tidak tersedia di pilihan \n")
 
-				if menu == 1:
-					for f in file["Card"]:
-						print(f)
+			if menu == 1:
+				for f in file["Card"]:
+					print(f)
 
-					while True:
-						try:
-							card = int(input("Pilih Kartu : "))
+				while True:
+					try:
+						card = int(input("Pilih Kartu : "))
 
-						except ValueError:
-							print("Maaf yang anda masukkan tidak tersedia di pilihan \n")
-							continue
+					except ValueError:
+						print("Maaf yang anda masukkan tidak tersedia di pilihan \n")
+						continue
 
-						else:
-								rslt = self.rules(card, self.enemy())
-								self.info(mS, eS)
+					else:
+							rslt = self.rules(card, self.enemy())
+							self.info(mS, eS)
 
-								if rslt == "Menang":
-									mS += 1
-								else:
-									eS += 1
+							if rslt == "Menang":
+								mS += 1
+							else:
+								eS += 1
 
-								if card == 9:
-									mS,eS = 0,0
-								
-								if card == 0:
-									print("Beri nama untuk menyimpan highscore")
-									user = input("Masukkan nama : ")
-									print("\n")
+							if card == 9:
+								mS,eS = 0,0
+							
+							if card == 0:
+								print("Beri nama untuk menyimpan highscore")
+								user = input("Masukkan nama : ")
+								print("\n")
+								self.highscore(mS,user)
+								mS,eS = 0,0
+								break
 
-									self.highscore(score,user)
-
-									for f in file["MainMenu"]:
-										print(f)
-									score = 0
-									break
-
-				if menu == 2:
-					with open("UI.json") as f:
-						file = json.load(f)
-						for i in file["Score"]:
-							print(i)
-					with open("datascore.json") as f:
-						file = json.load(f)
-						for n,i in enumerate(file["Score"].items()):
-							print(f"[{n+1}] {i[0]} : {i[1]}")
-			
-				if menu == 3:
-					break
+			if menu == 2:
+				for i in file["Score"]:
+					print(i)
+				with open("datascore.json") as f:
+					file = json.load(f)
+					for n,i in enumerate(reversed(list(file["Score"].items()))):
+						print(f"[{n+1}] {i[1]} : {i[0]}")
+					else: 
+						print("")
+		
+			if menu == 3:
+				break
