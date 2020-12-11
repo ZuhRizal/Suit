@@ -23,7 +23,7 @@ Com	: {eS}
 		with open("datascore.json") as json_file:	# Open file
 			file = json.load(json_file)				# Show file
 			
-		file["Score"][f"{S}"] = N					# Append key and value
+		file["Score"][f"{S}"] = N.capitalize()		# Append key and value
 
 		with open("datascore.json", "w") as json_file:
 			json.dump(file, json_file, indent=4,sort_keys=True)
@@ -78,11 +78,9 @@ Com	: {eS}
 				while True:
 					try:
 						card = int(input("Pilih Kartu : "))
-
 					except ValueError:
 						print("Maaf yang anda masukkan tidak tersedia di pilihan \n")
 						continue
-
 					else:
 							rslt = self.rules(card, self.enemy())
 							self.info(mS, eS)
@@ -111,7 +109,35 @@ Com	: {eS}
 					for n,i in enumerate(reversed(list(file["Score"].items()))):
 						print(f"[{n+1}] {i[1]} : {i[0]}")
 					else: 
-						print("")
+						print(f"""
+[-] Ketik DEL untuk menghapus score
+[-] Ketik MENU untuk kembali ke main menu
+""")
+
+				try:
+					order = input("Tulis Perintah : ")
+				except ValueError:
+					print("Maaf yang anda masukkan tidak tersedia di pilihan \n")
+					continue
+				else:
+					if order == "DEL":
+						score = int(input("Masukan nomor highscore : "))
+						if score == 0:
+							pass
+
+						else:
+							with open("datascore.json") as json_file:	# Open file
+								file = json.load(json_file)				# Show file
+
+							delete = list(file["Score"].items())		# Create new variable that toward into specific data file
+							del delete[len(delete)-score]				# Delete selected data
+							file["Score"] = dict(delete)				# Open specific data file location
+							
+							with open("datascore.json", "w") as json_file:
+								json.dump(file, json_file, indent=4,sort_keys=True)
+
+					if order == "MENU":
+						pass
 		
 			if menu == 3:
 				break
