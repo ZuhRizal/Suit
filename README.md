@@ -1,3 +1,3 @@
 Game Suit
 
-Untuk memainkan game ini execute run.py
+Untuk memainkan game ini execute main.py
